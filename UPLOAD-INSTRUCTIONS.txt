@@ -1,0 +1,36 @@
+Jamie Build Fixes - upload and installation
+
+Repository: https://github.com/JamieD91/Kodi_Build_Fixes
+
+If these files have not already been pushed to GitHub:
+1. Extract the supplied upload ZIP to an ordinary folder.
+2. Open your GitHub repository and choose Add file > Upload files.
+3. Upload the CONTENTS of the extracted folder. Keep addon/, repository/,
+   tests/ and tools/ as top-level folders alongside README.md and the
+   repository.jamied91.buildfixes-0.1.0.zip file.
+4. Commit the upload to the main branch. Uploading just the upload ZIP does
+   not create a working Kodi repository; its contents need to be present.
+
+To create a Kodi File Manager source:
+1. In GitHub Settings > Pages, choose Deploy from a branch.
+2. Choose main and /(root), then Save.
+3. Allow GitHub to finish publishing the site.
+4. Add https://jamied91.github.io/Kodi_Build_Fixes/ as a Kodi File Manager
+   source. Install repository.jamied91.buildfixes-0.1.0.zip from that source.
+
+Without GitHub Pages:
+Download the repository ZIP to your device and use Kodi > Add-ons > Install
+from ZIP file. The installed repository uses public GitHub raw URLs, so
+Pages is only needed for the convenient File Manager source.
+
+Then choose Install from repository > Jamie Build Fixes Repository >
+Program add-ons > Jamie Build Fixes - Toolkit. Run it, scan, apply selected
+compatible fixes, and restart Kodi.
+
+Installing or updating the toolkit does not apply patches automatically.
+The source checks have no upper add-on version ceiling. Unsupported code
+changes are skipped, and guarded Undo refuses to replace a later update.
+
+Only this project folder and generated installation ZIPs belong in the
+public repository. Do not add TV IP.txt, Kodi logs, userdata, account
+settings, local backups, credentials or access tokens.

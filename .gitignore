@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.test-output/
+.coverage
+*.log
+settings.xml
+!addon/resources/settings.xml
+.env
+*.token
+backups/
+private/
+userdata/
+pending.json
+last-cleanup.json
+trakt-metadata-audit.json
+repair.lock

@@ -1,0 +1,22 @@
+Jamie Build Fixes packages narrowly scoped compatibility repairs for Kodi add-ons.
+
+Original add-on code and reviewed repair fragments:
+- TMDb Helper and Trakt Sync provider: jurialmunkey
+  https://github.com/jurialmunkey/plugin.video.themoviedb.helper
+- AutoWidget: drinfernoo
+  https://github.com/drinfernoo/plugin.program.autowidget
+- Umbrella: Umbrella developers
+  https://umbrellaplug.github.io/
+- Diggz PlaylistBrowser and Xenon/ReAuthorize integration: their respective maintainers
+  https://github.com/nebulous42069/Omega
+- Trakt for Kodi: Trakt add-on maintainers
+  https://github.com/trakt/script.trakt
+- Multi Weather, ViperScrapers and ExtendedInfo: their respective maintainers.
+
+This toolkit is an independent personal maintenance project. It does not claim
+to be an official release of any affected add-on. Original author attribution
+remains in repaired files. Repairs are distributed under GPL-3.0-or-later.
+
+No account settings, passwords, tokens, viewing logs or device addresses are
+included. Local rollback copies may contain private data and remain on the
+device; never upload the toolkit's userdata/backups folder to GitHub.
