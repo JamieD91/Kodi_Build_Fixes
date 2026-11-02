@@ -106,12 +106,16 @@ def outputs():
     result['repository/addons.xml.md5']=(hashlib.md5(index).hexdigest()+'\n').encode()
     result['repository/addons.xml.sha256']=(hashlib.sha256(index).hexdigest()+'\n').encode()
     result['repository/manifest.json']=json.dumps({'schema':1,'version':VERSION,'packages':package_info},indent=2).encode()+b'\n'
-    links=[('<strong>Install this first: repository ZIP</strong>',repo_name),
+    links=[('Install this first: repository ZIP',repo_name),
            ('Combined repair toolkit ZIP',package_info[0]['path'])]
     links.extend((next(f['title'] for f in CATALOG['fixes'] if f['id']==p['fixes'][0]),p['path']) for p in package_info[1:])
-    page='<!doctype html><html lang="en"><meta charset="utf-8"><title>Jamie Build Fixes</title><h1>Jamie Build Fixes</h1><p>Install the repository ZIP, then choose the toolkit or an individual repair under Program add-ons.</p><ul>'
-    for label,href in links:page+='<li><a href="'+html.escape(href,quote=True)+'">'+label+'</a></li>'
-    page+='</ul><p>Repairs run only when you select Apply. Restart Kodi afterward. <a href="https://github.com/JamieD91/Kodi_Build_Fixes">Source and instructions</a>.</p></html>\n'
+    page='<!doctype html><html lang="en"><meta charset="utf-8"><title>Jamie Build Fixes</title><h1>Jamie Build Fixes</h1><p>Install the repository ZIP, then choose the toolkit or an individual repair under Program add-ons.</p><table>\n'
+    # Kodi's HTTPDirectory parser accepts an entry only when anchor text
+    # matches its relative href. Keep descriptions outside the filename link.
+    for label,href in links:
+        escaped=html.escape(href,quote=True)
+        page+='<tr><td><a href="'+escaped+'">'+escaped+'</a></td><td>'+html.escape(label)+'</td></tr>\n'
+    page+='</table><p>Repairs run only when you select Apply. Restart Kodi afterward. <a href="https://github.com/JamieD91/Kodi_Build_Fixes">Source and instructions</a>.</p></html>\n'
     result['index.html']=page.encode()
     result['.nojekyll']=b''
     checks=''.join(hashlib.sha256(raw).hexdigest()+'  '+path+'\n' for path,raw in sorted(result.items()) if path.endswith('.zip'))

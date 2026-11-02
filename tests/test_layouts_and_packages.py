@@ -102,6 +102,24 @@ class PackageTests(unittest.TestCase):
     def test_build_is_reproducible(self):
         self.assertEqual(self.outputs,self.build.outputs())
 
+    def test_file_manager_page_lists_all_packages_with_kodi_http_rules(self):
+        # Kodi Omega xbmc/filesystem/HTTPDirectory.cpp requires the decoded
+        # anchor text to match the relative href, rather than a friendly label.
+        import html
+        from urllib.parse import unquote, urljoin
+        page=self.outputs['index.html'].decode('utf-8')
+        pattern=r'<a href="([^"]*)"[^>]*>\s*(.*?)\s*</a>(.+?)(?=<a|</tr|$)'
+        visible=[]
+        for link,name,metadata in re.findall(pattern,page,re.I):
+            if html.unescape(name.strip()).rstrip('/')==unquote(html.unescape(link)).rstrip('/'):
+                visible.append(link)
+        packages={path for path in self.outputs if path.endswith('.zip')}
+        self.assertEqual(set(visible),packages)
+        self.assertTrue(visible[0].startswith('repository.jamied91.buildfixes-'))
+        for path in visible:
+            self.assertEqual(urljoin('https://jamied91.github.io/Kodi_Build_Fixes/',path),
+                             'https://jamied91.github.io/Kodi_Build_Fixes/'+path)
+
     def test_runtime_uses_python39_compatible_syntax(self):
         for path in (PROJECT/'addon').rglob('*.py'):
             if '__pycache__' not in path.parts:
