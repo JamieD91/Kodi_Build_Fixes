@@ -49,6 +49,29 @@ directly from the public GitHub repository's `main` branch.
 The Live TV provider address is editable in toolkit Settings. A working address
 cannot be guaranteed indefinitely: upstream providers can move or stop serving.
 
+## Player Menu Organiser
+
+Install **Jamie Player Menu Organiser** separately from this repository's Program
+add-ons. Open it, choose **Enable / reapply enhanced player menus**, then restart
+Kodi. **Put Red Light first** provides a shortcut to that saved group order.
+
+In a TMDb Helper player chooser, hold Select/OK, use the context-menu key or
+right-click. **Move / Order...** also opens the same options. Move up, down, to
+top or bottom saves immediately. Normal Select still chooses the player.
+**Preview and arrange player groups** lets you organise without starting playback.
+
+Player groups and their inner play/search menus keep separate orders. New
+entries follow saved entries; temporarily unavailable players retain their
+saved place. Reset restores TMDb Helper's original order for that menu.
+
+The organiser uses the active skin's select layout, with a bundled fallback.
+It affects TMDb Helper player choosers only. It does not change skin files,
+global remote keymaps, player definitions, playback settings or account data.
+The small chooser hook is checked structurally, backed up before changes and
+can be disabled from the organiser. If a Helper update clears it, run Enable
+again; unknown implementations are refused and saved preferences are retained.
+Installing the organiser does not enable the hook automatically.
+
 ## Compatibility and recovery
 
 The scan reports **Needs repair**, **Already fixed / not needed**, **Not

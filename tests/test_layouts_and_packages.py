@@ -85,13 +85,13 @@ class PackageTests(unittest.TestCase):
                     self.assertEqual(package['id'],root)
                     ET.fromstring(z.read(root+'/resources/settings.xml'))
                     self.assertIn(root+'/LICENSE.txt',z.namelist())
-        self.assertEqual(count,12)  # combined + ten individual repairs + repository
+        self.assertEqual(count,13)  # combined + ten repairs + organiser + repository
 
     def test_repository_index_and_all_download_checksums(self):
         xml=self.outputs['repository/addons.xml']
         self.assertEqual(self.outputs['repository/addons.xml.md5'].decode().strip(),hashlib.md5(xml).hexdigest())
         root=ET.fromstring(xml)
-        self.assertEqual(len(root.findall('addon')),11)
+        self.assertEqual(len(root.findall('addon')),12)
         manifest=json.loads(self.outputs['repository/manifest.json'])
         for package in manifest['packages']:
             raw=self.outputs[package['path']]
@@ -121,9 +121,10 @@ class PackageTests(unittest.TestCase):
                              'https://jamied91.github.io/Kodi_Build_Fixes/'+path)
 
     def test_runtime_uses_python39_compatible_syntax(self):
-        for path in (PROJECT/'addon').rglob('*.py'):
-            if '__pycache__' not in path.parts:
-                ast.parse(path.read_text(encoding='utf-8'),feature_version=(3,9))
+        for folder in ('addon','player_order'):
+            for path in (PROJECT/folder).rglob('*.py'):
+                if '__pycache__' not in path.parts:
+                    ast.parse(path.read_text(encoding='utf-8'),feature_version=(3,9))
 
     def test_no_machine_paths_or_private_storage_names_in_install_zips(self):
         forbidden=[b'C:\\Users\\Jamie',b'C:/Users/Jamie',b'TV IP.txt',b'connection.json',b'kodi-tv-patch-backups',b'kodi-reauthorize-20261101']

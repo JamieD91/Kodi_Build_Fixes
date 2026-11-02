@@ -109,6 +109,15 @@
       "fixes": [
         "weather"
       ]
+    },
+    {
+      "id": "script.jamied91.playerorder",
+      "version": "0.1.0",
+      "path": "repository/script.jamied91.playerorder/script.jamied91.playerorder-0.1.0.zip",
+      "sha256": "172a7f1c2a0c7f7984c1b68c2c5ed644db9651edfcc7b0d221bd80876207c111",
+      "bytes": 24064,
+      "fixes": [],
+      "feature": "player_order"
     }
   ]
 }

@@ -16,6 +16,7 @@ CATALOG=json.loads((ADDON/'resources/lib/buildfixes/recipes.json').read_text(enc
 VERSION=CATALOG['version']
 BASE_ID='script.jamied91.buildfixes'
 REPO_ID='repository.jamied91.buildfixes'
+ORDER_ID='script.jamied91.playerorder'
 RAW='https://raw.githubusercontent.com/JamieD91/Kodi_Build_Fixes/main/repository/'
 
 
@@ -96,6 +97,27 @@ def outputs():
         result['repository/'+addon_id+'/addon.xml']=own['addon.xml']
         addons.append(root)
         package_info.append({'id':addon_id,'version':VERSION,'path':relative,'sha256':digest,'bytes':len(data),'fixes':selected})
+    order_manifest=manifest(ORDER_ID,'Jamie Player Menu Organiser',
+        'Saved ordering and Move up / Move down for TMDb Helper player menus. '
+        'Open this program add-on to enable the checked chooser integration, then restart Kodi.')
+    order_manifest.remove(order_manifest.find("extension[@point='xbmc.service']"))
+    ET.SubElement(order_manifest.find('requires'),'import',{'addon':'plugin.video.themoviedb.helper','version':'6.20.3'})
+    order_manifest.find("extension[@point='xbmc.addon.metadata']/news").text='First release: skin-aware player ordering, context menu, preview and reversible integration.'
+    order_files={p.relative_to(ROOT/'player_order').as_posix():p.read_bytes()
+        for p in (ROOT/'player_order').rglob('*')
+        if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.pyo')}
+    order_files.update({'addon.xml':xml_bytes(order_manifest),'LICENSE.txt':files['LICENSE.txt'],
+        'CREDITS.txt':files['CREDITS.txt'],'resources/settings.xml':b'<settings/>\n',
+        'package.json':json.dumps({'id':ORDER_ID,'version':VERSION,'feature':'player_order'}).encode()})
+    order_zip=zip_bytes(order_files,ORDER_ID)
+    order_path='repository/'+ORDER_ID+'/'+ORDER_ID+'-'+VERSION+'.zip'
+    order_digest=hashlib.sha256(order_zip).hexdigest()
+    result[order_path]=order_zip
+    result[order_path+'.sha256']=(order_digest+'\n').encode()
+    result['repository/'+ORDER_ID+'/addon.xml']=order_files['addon.xml']
+    addons.append(order_manifest)
+    package_info.append({'id':ORDER_ID,'version':VERSION,'path':order_path,'sha256':order_digest,
+        'bytes':len(order_zip),'fixes':[],'feature':'player_order'})
     repo_manifest=manifest(REPO_ID,'Jamie Build Fixes Repository','Repository for Jamie\'s manually operated Kodi repair toolkit.',True)
     repo_zip=zip_bytes({'addon.xml':xml_bytes(repo_manifest),'README.txt':b'Install this ZIP in Kodi, then browse Jamie Build Fixes Repository / Program add-ons.\n'},REPO_ID)
     repo_name=REPO_ID+'-'+VERSION+'.zip'
@@ -108,7 +130,8 @@ def outputs():
     result['repository/manifest.json']=json.dumps({'schema':1,'version':VERSION,'packages':package_info},indent=2).encode()+b'\n'
     links=[('Install this first: repository ZIP',repo_name),
            ('Combined repair toolkit ZIP',package_info[0]['path'])]
-    links.extend((next(f['title'] for f in CATALOG['fixes'] if f['id']==p['fixes'][0]),p['path']) for p in package_info[1:])
+    links.extend((next(f['title'] for f in CATALOG['fixes'] if f['id']==p['fixes'][0]),p['path']) for p in package_info[1:] if p['fixes'])
+    links.append(('Player Menu Organiser',order_path))
     page='<!doctype html><html lang="en"><meta charset="utf-8"><title>Jamie Build Fixes</title><h1>Jamie Build Fixes</h1><p>Install the repository ZIP, then choose the toolkit or an individual repair under Program add-ons.</p><table>\n'
     # Kodi's HTTPDirectory parser accepts an entry only when anchor text
     # matches its relative href. Keep descriptions outside the filename link.

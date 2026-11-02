@@ -10,3 +10,4 @@ a2edd97777a4752806444926b1890bfd6ef579213dd70b2d702b8d719593eae3  repository/scr
 16b1ea810027ae0e804428fa406d7b3cf8902b5616cefbc945917aaf82a4bf0b  repository/script.jamied91.buildfixes.umbrella/script.jamied91.buildfixes.umbrella-0.1.0.zip
 067f728eeaf1b9dbde9555dde0df24b37a09525012b3b679548dc219c60dffe9  repository/script.jamied91.buildfixes.weather/script.jamied91.buildfixes.weather-0.1.0.zip
 f86abfde67f23618e9ae9256744f7d6bf148b6beb99b5f476c0edc5daee1fca8  repository/script.jamied91.buildfixes/script.jamied91.buildfixes-0.1.0.zip
+172a7f1c2a0c7f7984c1b68c2c5ed644db9651edfcc7b0d221bd80876207c111  repository/script.jamied91.playerorder/script.jamied91.playerorder-0.1.0.zip
