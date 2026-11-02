@@ -72,6 +72,32 @@ can be disabled from the organiser. If a Helper update clears it, run Enable
 again; unknown implementations are refused and saved preferences are retained.
 Installing the organiser does not enable the hook automatically.
 
+## Kodi Storage Viewer
+
+Install **Kodi Storage Viewer** from this repository's Program add-ons and open
+it to scan. It is independent of TMDb Helper, the repair toolkit and the player
+organiser, and uses Kodi's native dialogs to work with different skins.
+
+Explore measured storage by category, add-on, largest files or folder. Add-on
+totals separate installed code from saved data/caches across local profiles.
+Thumbnails, databases, installer ZIPs, temporary files, logs and profile files
+have their own categories. Unmatched data folders are listed for review.
+
+Each add-on shows direct/indirect required dependants (including disabled
+add-ons), optional dependencies and discovered active-skin/favourites links.
+**No declared dependants** is guidance, not proof that an add-on is unused:
+builds can call add-ons dynamically. **Open Kodi add-on manager** takes you to
+Kodi's controls for reviewing, disabling or uninstalling an add-on.
+
+The viewer performs no cleanup, patching or disabling. Scans stay in memory;
+no report or account data is uploaded. The size scan uses file metadata, while
+small manifests and bounded skin/favourites XML are read for references.
+Scans can be cancelled; inaccessible files and partial results are reported.
+Local overlapping roots are deduplicated and links/junctions are skipped.
+Sizes are logical file contents, with hard-link duplicates counted once;
+filesystem allocation and Android app-private/APK usage can differ. The largest
+500 entries per folder and 100 files overall are shown to keep memory bounded.
+
 ## Compatibility and recovery
 
 The scan reports **Needs repair**, **Already fixed / not needed**, **Not

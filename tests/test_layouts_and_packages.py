@@ -85,13 +85,13 @@ class PackageTests(unittest.TestCase):
                     self.assertEqual(package['id'],root)
                     ET.fromstring(z.read(root+'/resources/settings.xml'))
                     self.assertIn(root+'/LICENSE.txt',z.namelist())
-        self.assertEqual(count,13)  # combined + ten repairs + organiser + repository
+        self.assertEqual(count,14)  # combined + ten repairs + organiser + viewer + repository
 
     def test_repository_index_and_all_download_checksums(self):
         xml=self.outputs['repository/addons.xml']
         self.assertEqual(self.outputs['repository/addons.xml.md5'].decode().strip(),hashlib.md5(xml).hexdigest())
         root=ET.fromstring(xml)
-        self.assertEqual(len(root.findall('addon')),12)
+        self.assertEqual(len(root.findall('addon')),13)
         manifest=json.loads(self.outputs['repository/manifest.json'])
         for package in manifest['packages']:
             raw=self.outputs[package['path']]
@@ -121,7 +121,7 @@ class PackageTests(unittest.TestCase):
                              'https://jamied91.github.io/Kodi_Build_Fixes/'+path)
 
     def test_runtime_uses_python39_compatible_syntax(self):
-        for folder in ('addon','player_order'):
+        for folder in ('addon','player_order','storage_viewer'):
             for path in (PROJECT/folder).rglob('*.py'):
                 if '__pycache__' not in path.parts:
                     ast.parse(path.read_text(encoding='utf-8'),feature_version=(3,9))

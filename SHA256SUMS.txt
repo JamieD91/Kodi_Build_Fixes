@@ -11,3 +11,4 @@ a2edd97777a4752806444926b1890bfd6ef579213dd70b2d702b8d719593eae3  repository/scr
 067f728eeaf1b9dbde9555dde0df24b37a09525012b3b679548dc219c60dffe9  repository/script.jamied91.buildfixes.weather/script.jamied91.buildfixes.weather-0.1.0.zip
 f86abfde67f23618e9ae9256744f7d6bf148b6beb99b5f476c0edc5daee1fca8  repository/script.jamied91.buildfixes/script.jamied91.buildfixes-0.1.0.zip
 172a7f1c2a0c7f7984c1b68c2c5ed644db9651edfcc7b0d221bd80876207c111  repository/script.jamied91.playerorder/script.jamied91.playerorder-0.1.0.zip
+98226bedd085c1fc19c7a2987203c89a91088729017e19c3550b1080d2034496  repository/script.jamied91.storageviewer/script.jamied91.storageviewer-0.1.0.zip

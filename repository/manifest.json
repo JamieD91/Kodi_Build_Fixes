@@ -118,6 +118,15 @@
       "bytes": 24064,
       "fixes": [],
       "feature": "player_order"
+    },
+    {
+      "id": "script.jamied91.storageviewer",
+      "version": "0.1.0",
+      "path": "repository/script.jamied91.storageviewer/script.jamied91.storageviewer-0.1.0.zip",
+      "sha256": "98226bedd085c1fc19c7a2987203c89a91088729017e19c3550b1080d2034496",
+      "bytes": 27572,
+      "fixes": [],
+      "feature": "storage_viewer"
     }
   ]
 }

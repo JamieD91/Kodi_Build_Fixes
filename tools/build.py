@@ -17,6 +17,7 @@ VERSION=CATALOG['version']
 BASE_ID='script.jamied91.buildfixes'
 REPO_ID='repository.jamied91.buildfixes'
 ORDER_ID='script.jamied91.playerorder'
+STORAGE_ID='script.jamied91.storageviewer'
 RAW='https://raw.githubusercontent.com/JamieD91/Kodi_Build_Fixes/main/repository/'
 
 
@@ -118,6 +119,27 @@ def outputs():
     addons.append(order_manifest)
     package_info.append({'id':ORDER_ID,'version':VERSION,'path':order_path,'sha256':order_digest,
         'bytes':len(order_zip),'fixes':[],'feature':'player_order'})
+    storage_manifest=manifest(STORAGE_ID,'Kodi Storage Viewer',
+        'Explore local Kodi storage by category, add-on and folder. Compare code and saved data, '
+        'inspect required/optional dependencies and active-skin references, then use Kodi add-on manager for removal. '
+        'Read-only, cancellable scans; no cleanup or background service.')
+    storage_manifest.remove(storage_manifest.find("extension[@point='xbmc.service']"))
+    storage_manifest.find("extension[@point='xbmc.addon.metadata']/news").text='First release: local storage explorer, add-on sizes, dependency graph, skin links and partial-scan reporting.'
+    storage_files={p.relative_to(ROOT/'storage_viewer').as_posix():p.read_bytes()
+        for p in (ROOT/'storage_viewer').rglob('*')
+        if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.pyo')}
+    storage_files.update({'addon.xml':xml_bytes(storage_manifest),'LICENSE.txt':files['LICENSE.txt'],
+        'CREDITS.txt':files['CREDITS.txt'],'resources/settings.xml':b'<settings/>\n',
+        'package.json':json.dumps({'id':STORAGE_ID,'version':VERSION,'feature':'storage_viewer'}).encode()})
+    storage_zip=zip_bytes(storage_files,STORAGE_ID)
+    storage_path='repository/'+STORAGE_ID+'/'+STORAGE_ID+'-'+VERSION+'.zip'
+    storage_digest=hashlib.sha256(storage_zip).hexdigest()
+    result[storage_path]=storage_zip
+    result[storage_path+'.sha256']=(storage_digest+'\n').encode()
+    result['repository/'+STORAGE_ID+'/addon.xml']=storage_files['addon.xml']
+    addons.append(storage_manifest)
+    package_info.append({'id':STORAGE_ID,'version':VERSION,'path':storage_path,'sha256':storage_digest,
+        'bytes':len(storage_zip),'fixes':[],'feature':'storage_viewer'})
     repo_manifest=manifest(REPO_ID,'Jamie Build Fixes Repository','Repository for Jamie\'s manually operated Kodi repair toolkit.',True)
     repo_zip=zip_bytes({'addon.xml':xml_bytes(repo_manifest),'README.txt':b'Install this ZIP in Kodi, then browse Jamie Build Fixes Repository / Program add-ons.\n'},REPO_ID)
     repo_name=REPO_ID+'-'+VERSION+'.zip'
@@ -132,6 +154,7 @@ def outputs():
            ('Combined repair toolkit ZIP',package_info[0]['path'])]
     links.extend((next(f['title'] for f in CATALOG['fixes'] if f['id']==p['fixes'][0]),p['path']) for p in package_info[1:] if p['fixes'])
     links.append(('Player Menu Organiser',order_path))
+    links.append(('Kodi Storage Viewer',storage_path))
     page='<!doctype html><html lang="en"><meta charset="utf-8"><title>Jamie Build Fixes</title><h1>Jamie Build Fixes</h1><p>Install the repository ZIP, then choose the toolkit or an individual repair under Program add-ons.</p><table>\n'
     # Kodi's HTTPDirectory parser accepts an entry only when anchor text
     # matches its relative href. Keep descriptions outside the filename link.

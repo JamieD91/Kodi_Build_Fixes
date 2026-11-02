@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<addon id="script.jamied91.storageviewer" name="Kodi Storage Viewer" version="0.1.0" provider-name="JamieD91">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+  </requires>
+  <extension point="xbmc.python.script" library="addon.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Kodi Storage Viewer</summary>
+    <description lang="en_GB">Explore local Kodi storage by category, add-on and folder. Compare code and saved data, inspect required/optional dependencies and active-skin references, then use Kodi add-on manager for removal. Read-only, cancellable scans; no cleanup or background service.</description>
+    <platform>all</platform>
+    <license>GPL-3.0-or-later</license>
+    <source>https://github.com/JamieD91/Kodi_Build_Fixes</source>
+    <website>https://jamied91.github.io/Kodi_Build_Fixes/</website>
+    <news>First release: local storage explorer, add-on sizes, dependency graph, skin links and partial-scan reporting.</news>
+  </extension>
+</addon>
