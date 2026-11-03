@@ -1,6 +1,7 @@
 """Build deterministic Kodi installation ZIPs and a public GitHub repository."""
 from pathlib import Path
 import argparse
+import ast
 import hashlib
 import html
 import json
@@ -18,7 +19,18 @@ BASE_ID='script.jamied91.buildfixes'
 REPO_ID='repository.jamied91.buildfixes'
 ORDER_ID='script.jamied91.playerorder'
 STORAGE_ID='script.jamied91.storageviewer'
+REPO_VERSION='0.1.0'
 RAW='https://raw.githubusercontent.com/JamieD91/Kodi_Build_Fixes/main/repository/'
+
+
+def feature_version(folder, module):
+    tree=ast.parse((ROOT/folder/'resources/lib'/module/'__init__.py').read_text(encoding='utf-8'))
+    return next(ast.literal_eval(n.value) for n in tree.body if isinstance(n,ast.Assign)
+        and any(isinstance(t,ast.Name) and t.id=='VERSION' for t in n.targets))
+
+
+ORDER_VERSION=feature_version('player_order','jamieplayerorder')
+STORAGE_VERSION=feature_version('storage_viewer','jamiestorageviewer')
 
 
 def xml_bytes(root):
@@ -26,8 +38,8 @@ def xml_bytes(root):
     return ET.tostring(root,encoding='utf-8',xml_declaration=True)+b'\n'
 
 
-def manifest(addon_id,name,description,repo=False):
-    root=ET.Element('addon',{'id':addon_id,'name':name,'version':VERSION,'provider-name':'JamieD91'})
+def manifest(addon_id,name,description,repo=False,version=None):
+    root=ET.Element('addon',{'id':addon_id,'name':name,'version':version or VERSION,'provider-name':'JamieD91'})
     if repo:
         extension=ET.SubElement(root,'extension',{'point':'xbmc.addon.repository'})
         directory=ET.SubElement(extension,'dir')
@@ -100,7 +112,7 @@ def outputs():
         package_info.append({'id':addon_id,'version':VERSION,'path':relative,'sha256':digest,'bytes':len(data),'fixes':selected})
     order_manifest=manifest(ORDER_ID,'Jamie Player Menu Organiser',
         'Saved ordering and Move up / Move down for TMDb Helper player menus. '
-        'Open this program add-on to enable the checked chooser integration, then restart Kodi.')
+        'Open this program add-on to enable the checked chooser integration, then restart Kodi.',version=ORDER_VERSION)
     order_manifest.remove(order_manifest.find("extension[@point='xbmc.service']"))
     ET.SubElement(order_manifest.find('requires'),'import',{'addon':'plugin.video.themoviedb.helper','version':'6.20.3'})
     order_manifest.find("extension[@point='xbmc.addon.metadata']/news").text='First release: skin-aware player ordering, context menu, preview and reversible integration.'
@@ -109,20 +121,20 @@ def outputs():
         if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.pyo')}
     order_files.update({'addon.xml':xml_bytes(order_manifest),'LICENSE.txt':files['LICENSE.txt'],
         'CREDITS.txt':files['CREDITS.txt'],'resources/settings.xml':b'<settings/>\n',
-        'package.json':json.dumps({'id':ORDER_ID,'version':VERSION,'feature':'player_order'}).encode()})
+        'package.json':json.dumps({'id':ORDER_ID,'version':ORDER_VERSION,'feature':'player_order'}).encode()})
     order_zip=zip_bytes(order_files,ORDER_ID)
-    order_path='repository/'+ORDER_ID+'/'+ORDER_ID+'-'+VERSION+'.zip'
+    order_path='repository/'+ORDER_ID+'/'+ORDER_ID+'-'+ORDER_VERSION+'.zip'
     order_digest=hashlib.sha256(order_zip).hexdigest()
     result[order_path]=order_zip
     result[order_path+'.sha256']=(order_digest+'\n').encode()
     result['repository/'+ORDER_ID+'/addon.xml']=order_files['addon.xml']
     addons.append(order_manifest)
-    package_info.append({'id':ORDER_ID,'version':VERSION,'path':order_path,'sha256':order_digest,
+    package_info.append({'id':ORDER_ID,'version':ORDER_VERSION,'path':order_path,'sha256':order_digest,
         'bytes':len(order_zip),'fixes':[],'feature':'player_order'})
     storage_manifest=manifest(STORAGE_ID,'Kodi Storage Viewer',
         'Explore local Kodi storage by category, add-on and folder. Compare code and saved data, '
         'inspect required/optional dependencies and active-skin references, then use Kodi add-on manager for removal. '
-        'Read-only, cancellable scans; no cleanup or background service.')
+        'Read-only, cancellable scans; no cleanup or background service.',version=STORAGE_VERSION)
     storage_manifest.remove(storage_manifest.find("extension[@point='xbmc.service']"))
     storage_manifest.find("extension[@point='xbmc.addon.metadata']/news").text='First release: local storage explorer, add-on sizes, dependency graph, skin links and partial-scan reporting.'
     storage_files={p.relative_to(ROOT/'storage_viewer').as_posix():p.read_bytes()
@@ -130,19 +142,19 @@ def outputs():
         if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.pyo')}
     storage_files.update({'addon.xml':xml_bytes(storage_manifest),'LICENSE.txt':files['LICENSE.txt'],
         'CREDITS.txt':files['CREDITS.txt'],'resources/settings.xml':b'<settings/>\n',
-        'package.json':json.dumps({'id':STORAGE_ID,'version':VERSION,'feature':'storage_viewer'}).encode()})
+        'package.json':json.dumps({'id':STORAGE_ID,'version':STORAGE_VERSION,'feature':'storage_viewer'}).encode()})
     storage_zip=zip_bytes(storage_files,STORAGE_ID)
-    storage_path='repository/'+STORAGE_ID+'/'+STORAGE_ID+'-'+VERSION+'.zip'
+    storage_path='repository/'+STORAGE_ID+'/'+STORAGE_ID+'-'+STORAGE_VERSION+'.zip'
     storage_digest=hashlib.sha256(storage_zip).hexdigest()
     result[storage_path]=storage_zip
     result[storage_path+'.sha256']=(storage_digest+'\n').encode()
     result['repository/'+STORAGE_ID+'/addon.xml']=storage_files['addon.xml']
     addons.append(storage_manifest)
-    package_info.append({'id':STORAGE_ID,'version':VERSION,'path':storage_path,'sha256':storage_digest,
+    package_info.append({'id':STORAGE_ID,'version':STORAGE_VERSION,'path':storage_path,'sha256':storage_digest,
         'bytes':len(storage_zip),'fixes':[],'feature':'storage_viewer'})
-    repo_manifest=manifest(REPO_ID,'Jamie Build Fixes Repository','Repository for Jamie\'s manually operated Kodi repair toolkit.',True)
+    repo_manifest=manifest(REPO_ID,'Jamie Build Fixes Repository','Repository for Jamie\'s manually operated Kodi repair toolkit.',True,version=REPO_VERSION)
     repo_zip=zip_bytes({'addon.xml':xml_bytes(repo_manifest),'README.txt':b'Install this ZIP in Kodi, then browse Jamie Build Fixes Repository / Program add-ons.\n'},REPO_ID)
-    repo_name=REPO_ID+'-'+VERSION+'.zip'
+    repo_name=REPO_ID+'-'+REPO_VERSION+'.zip'
     result[repo_name]=repo_zip
     result[repo_name+'.sha256']=(hashlib.sha256(repo_zip).hexdigest()+'\n').encode()
     index=xml_bytes(addons)

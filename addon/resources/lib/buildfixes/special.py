@@ -171,6 +171,11 @@ def inspect_special(engine, plan, recipe):
         return True
     if name == 'reauth':
         reauth(engine, plan)
+        for source in recipe.get('sources', []):
+            engine.source_repair(plan, source)
+        from buildfixes.trakt_bridge import inspect_bridge
+        inspect_bridge(engine, plan)
+        return True
     elif name == 'liveguide':
         liveguide(engine, plan)
     elif name == 'weather' and weather_is_fixed(engine):

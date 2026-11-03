@@ -71,7 +71,9 @@ class PackageTests(unittest.TestCase):
                 root=next(iter(roots))
                 manifest=ET.fromstring(z.read(root+'/addon.xml'))
                 self.assertEqual(manifest.get('id'),root)
-                self.assertEqual(manifest.get('version'),self.build.VERSION)
+                expected={self.build.REPO_ID:self.build.REPO_VERSION,self.build.ORDER_ID:self.build.ORDER_VERSION,
+                    self.build.STORAGE_ID:self.build.STORAGE_VERSION}.get(root,self.build.VERSION)
+                self.assertEqual(manifest.get('version'),expected)
                 for path in z.namelist():
                     self.assertNotIn('..',Path(path).parts)
                     self.assertFalse(path.startswith('/'))

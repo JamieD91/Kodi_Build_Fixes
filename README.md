@@ -39,7 +39,8 @@ directly from the public GitHub repository's `main` branch.
 - AutoWidget playback timing, seek accounting and empty refresh paths.
 - Umbrella progress-episode season/ID mapping.
 - Live TV provider setting and first-run retry backoff.
-- ReAuthorize token-lifetime metadata and its hidden Trakt sign-in action.
+- ReAuthorize token-lifetime metadata, its hidden Trakt sign-in action and
+  the extracted TMDb Helper Trakt provider's application-key/token integration.
 - ExtendedInfo's known malformed manifest.
 - Trakt context-menu actions on supported non-library TMDb Helper items.
 - Viper Torrentio empty-result handling.
@@ -120,6 +121,15 @@ old token expiry calculations. ReAuthorize remains responsible for renewal.
 Future add-on or skin updates may clear a repair. Run Scan and Apply again.
 Unknown implementations are intentionally not guessed at. These repairs do not
 promise to fix unrelated playback, provider, account or graphics problems.
+
+Toolkit 0.1.1 repairs ReAuthorize's old TMDb Helper key-file assumption after
+the Trakt API moved into `script.module.tmdbhelper.sync.trakt`. It configures
+the recognised application key only when the provider and ReAuthorize already
+hold the same access/refresh token pair. Separate provider sign-ins, custom
+keys and changed code are left alone. The repaired ReAuthorize adapter writes
+both legacy and provider token stores and clears stale session properties.
+No application keys or account tokens are shipped with the repair. Restart
+Kodi after applying it so the changed application-key module is reloaded.
 
 ## Build and test
 

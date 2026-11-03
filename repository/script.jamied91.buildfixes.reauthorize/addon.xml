@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<addon id="script.jamied91.buildfixes.reauthorize" name="Jamie Fix - ReAuthorize Trakt metadata and sign-in recovery" version="0.1.0" provider-name="JamieD91">
+<addon id="script.jamied91.buildfixes.reauthorize" name="Jamie Fix - ReAuthorize Trakt metadata and sign-in recovery" version="0.1.1" provider-name="JamieD91">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>
@@ -9,7 +9,7 @@
   <extension point="xbmc.service" library="service.py" />
   <extension point="xbmc.addon.metadata">
     <summary lang="en_GB">Jamie Fix - ReAuthorize Trakt metadata and sign-in recovery</summary>
-    <description lang="en_GB">Use the saved server token lifetime, keep existing tokens, and expose the existing sign-in action for recovery.</description>
+    <description lang="en_GB">Repair token lifetime/sign-in visibility and the recognised ReAuthorize integration with the extracted TMDb Helper Trakt provider, without resetting a separate sign-in.</description>
     <platform>all</platform>
     <license>GPL-3.0-or-later</license>
     <source>https://github.com/JamieD91/Kodi_Build_Fixes</source>

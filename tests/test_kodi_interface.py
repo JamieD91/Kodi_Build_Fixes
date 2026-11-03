@@ -17,7 +17,7 @@ class KodiInterfaceTests(unittest.TestCase):
     def setUpClass(cls):
         spec=importlib.util.spec_from_file_location('interface_builder',PROJECT/'tools/build.py')
         builder=importlib.util.module_from_spec(spec);spec.loader.exec_module(builder)
-        cls.package=builder.outputs()['repository/script.jamied91.buildfixes/script.jamied91.buildfixes-0.1.0.zip']
+        cls.package=builder.outputs()['repository/script.jamied91.buildfixes/script.jamied91.buildfixes-'+builder.VERSION+'.zip']
 
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)

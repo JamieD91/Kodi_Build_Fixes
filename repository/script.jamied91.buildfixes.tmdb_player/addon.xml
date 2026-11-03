@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<addon id="script.jamied91.buildfixes.tmdb_player" name="Jamie Fix - TMDb Helper playback callbacks" version="0.1.0" provider-name="JamieD91">
+<addon id="script.jamied91.buildfixes.tmdb_player" name="Jamie Fix - TMDb Helper playback callbacks" version="0.1.1" provider-name="JamieD91">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>

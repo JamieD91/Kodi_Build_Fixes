@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": "https://github.com/JamieD91/Kodi_Build_Fixes",
   "fixes": [
     {
@@ -283,7 +283,7 @@
           ]
         }
       ],
-      "description": "Use the saved server token lifetime, keep existing tokens, and expose the existing sign-in action for recovery."
+      "description": "Repair token lifetime/sign-in visibility and the recognised ReAuthorize integration with the extracted TMDb Helper Trakt provider, without resetting a separate sign-in."
     },
     {
       "id": "extendedinfo",
