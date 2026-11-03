@@ -11,7 +11,8 @@ from unittest.mock import patch
 from support import make_engine
 from buildfixes.engine import Incompatible, Plan
 from buildfixes.trakt_bridge import (
-    BASE, KEYS, VARIABLES, SYNC, LEGACY, REPAIRED, patch_keys, patch_sync, inspect_bridge)
+    BASE, KEYS, VARIABLES, SYNC, LEGACY, REPAIRED, LEGACY_ROUTE, PROVIDER_ROUTE,
+    patch_keys, patch_sync, patch_route, inspect_bridge)
 
 MASTER, ORIGINAL, CUSTOM = 'a'*64, 'b'*64, 'c'*64
 
@@ -105,7 +106,7 @@ class BridgeTests(unittest.TestCase):
         def write(name,text):
             path=engine.root/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(text)
         write(KEYS,"CLIENT_ID = '"+ORIGINAL+"'\n")
-        write(VARIABLES,"def traktID():\n    return '"+MASTER+"'\ntmdbh_client = '"+ORIGINAL+"'\n")
+        write(VARIABLES,"def traktID():\n    return '"+MASTER+"'\ntmdbh_client = '"+ORIGINAL+"'\n"+LEGACY_ROUTE)
         write(BASE+'api/api.py','from tmdbhelper_sync_trakt.api.keys import CLIENT_ID\nclass TraktAPI:\n    client_id = CLIENT_ID\n')
         write(SYNC,'class Auth:\n    def trakt_auth(self):\n'+
             '\n'.join('        '+line for line in LEGACY.splitlines())+'\n')
@@ -115,7 +116,7 @@ class BridgeTests(unittest.TestCase):
             {'access_token':'synthetic-access','refresh_token':'synthetic-refresh'}))
         plan=Plan('reauthorize','ReAuthorize')
         inspect_bridge(engine,plan)
-        self.assertEqual(len(plan.files),2)
+        self.assertEqual(len(plan.files),3)
         plan.status='ready'
         engine.apply(plan)
         again=Plan('reauthorize','ReAuthorize');inspect_bridge(engine,again)
@@ -123,5 +124,16 @@ class BridgeTests(unittest.TestCase):
         engine.backend.set_setting('script.module.tmdbhelper.sync.trakt','token',json.dumps({'access_token':'other','refresh_token':'other'}))
         with self.assertRaises(Incompatible):inspect_bridge(engine,Plan('reauthorize','ReAuthorize'))
 
+    def test_background_checker_route_tracks_provider_and_falls_back_for_legacy(self):
+        raw=('# preserve\n'+LEGACY_ROUTE+'\nother_setting = 42\n').encode()
+        changed=patch_route(raw)
+        self.assertEqual(patch_route(changed),changed)
+        self.assertIn(b'other_setting = 42',changed)
+        for present in (True,False):
+            namespace={'addons':'/kodi/addons/','translatePath':lambda path:path,
+                       'xbmcvfs':NS(exists=lambda path:present)}
+            exec(compile(changed,'route-test','exec'),namespace)
+            self.assertIn('script.module.tmdbhelper.sync.trakt' if present else 'plugin.video.themoviedb.helper',namespace['path_tmdbh'])
+        with self.assertRaises(Incompatible):patch_route(raw.replace(b'api_keys/trakt.py',b'unknown/trakt.py'))
 
 if __name__ == '__main__':unittest.main()

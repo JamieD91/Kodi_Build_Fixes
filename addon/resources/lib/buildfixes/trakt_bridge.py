@@ -14,6 +14,11 @@ BASE = 'addons/'+PROVIDER+'/resources/lib/tmdbhelper_sync_trakt/'
 KEYS = BASE+'api/keys.py'
 SYNC = 'addons/skin.xenon2/resources/scripts/reauthorize/main/lib/reauthorize/modules/sync/trakt_sync.py'
 VARIABLES = 'addons/skin.xenon2/resources/scripts/reauthorize/core/resources/libs/common/var.py'
+LEGACY_ROUTE = "path_tmdbh = addons + translatePath('plugin.video.themoviedb.helper/resources/tmdbhelper/lib/api/api_keys/trakt.py')\n"
+PROVIDER_ROUTE = LEGACY_ROUTE+"""_tmdbh_provider_keys = addons + translatePath('script.module.tmdbhelper.sync.trakt/resources/lib/tmdbhelper_sync_trakt/api/keys.py')
+if xbmcvfs.exists(_tmdbh_provider_keys):
+    path_tmdbh = _tmdbh_provider_keys
+"""
 
 LEGACY = '''if 'TMDb Helper' in current:
     if xbmcvfs.exists(var.chk_tmdbh) and (not xbmcvfs.exists(var.tmdbh_ud)):
@@ -161,6 +166,12 @@ def patch_sync(raw):
     return (b'\xef\xbb\xbf' if raw.startswith(b'\xef\xbb\xbf') else b'')+result.encode('utf-8')
 
 
+def patch_route(raw):
+    from buildfixes.engine import patch_python
+    return patch_python(raw,[{'kind':'block','scope':[],
+        'before':[LEGACY_ROUTE],'after':PROVIDER_ROUTE}])
+
+
 def inspect_bridge(engine, plan):
     if not safe_path(engine.root,KEYS).is_file():
         return  # Legacy core layout uses its original adapter.
@@ -183,7 +194,8 @@ def inspect_bridge(engine, plan):
     if token.get('access_token')!=account['trakt.token'] or token.get('refresh_token')!=account['trakt.refresh']:
         raise Incompatible('Provider has a separate sign-in; credentials left unchanged')
     plan.versions[PROVIDER] = engine.addon_version(PROVIDER)
-    for path, transform in ((KEYS,lambda raw:patch_keys(raw,master,original)), (SYNC,patch_sync)):
+    for path, transform in ((KEYS,lambda raw:patch_keys(raw,master,original)), (SYNC,patch_sync),
+                            (VARIABLES,patch_route)):
         prior = next((change for change in plan.files if change.path==path),None)
         before = prior.after if prior else engine.read(path)
         after = transform(before)
