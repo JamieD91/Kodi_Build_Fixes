@@ -22,12 +22,12 @@ class EngineTests(unittest.TestCase):
 
     def test_all_original_repairs_apply_and_rescan_idempotently(self):
         plans=self.engine.scan()
-        self.assertEqual(len(plans),10)
+        self.assertEqual(len(plans),len(CATALOG['fixes']))
         for p in plans:self.assertEqual(p.status,'ready',(p.id,p.reason))
         for p in plans:self.engine.apply(p)
         for p in self.engine.scan():self.assertEqual(p.status,'fixed',(p.id,p.reason))
         self.assertEqual(self.engine.backend.get_setting('plugin.video.playlistbrowser','unrelated'),'preserve-me')
-        self.assertEqual(len(self.engine.backups()),10)
+        self.assertEqual(len(self.engine.backups()),len(CATALOG['fixes']))
 
     def test_newer_version_and_unrelated_new_code_are_preserved(self):
         path=self.engine.root/'addons/plugin.video.themoviedb.helper/resources/tmdbhelper/lib/monitor/player.py'

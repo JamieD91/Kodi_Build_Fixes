@@ -43,6 +43,8 @@ directly from the public GitHub repository's `main` branch.
   the extracted TMDb Helper Trakt provider's application-key/token integration.
 - ExtendedInfo's known malformed manifest.
 - Trakt context-menu actions on supported non-library TMDb Helper items.
+- Red Light playback identification: omit title-generated Trakt slugs while
+  retaining the supplied TMDb, IMDb and TVDB identifiers.
 - Viper Torrentio empty-result handling.
 - Older Yahoo weather label mapping. The supported newer upstream mapping is
   recognised and left unchanged.
@@ -136,6 +138,11 @@ The newer Xenon adapter that delegates to `tmdbh_compat.sync_trakt` is
 recognised and preserved, including its OAuth secret handling. Its presence
 does not prevent restoring an application key or checker route overwritten
 by an update. Unknown changes to that sync branch still stop the repair.
+
+Toolkit 0.1.4 adds the Red Light identification repair. A title-generated slug
+can refer to another show (for example `cia` instead of `cia-2026`), causing
+Trakt to reject a scrobble. The repair changes only that known assignment in
+the playback properties; other metadata and playback behavior are preserved.
 
 ## Build and test
 

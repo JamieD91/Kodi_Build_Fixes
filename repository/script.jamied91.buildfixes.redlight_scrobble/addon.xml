@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<addon id="script.jamied91.buildfixes.redlight_scrobble" name="Jamie Fix - Red Light Trakt playback identification" version="0.1.4" provider-name="JamieD91">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+  </requires>
+  <extension point="xbmc.python.script" library="addon.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.service" library="service.py" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Jamie Fix - Red Light Trakt playback identification</summary>
+    <description lang="en_GB">Keep real media database IDs and remove the title-generated Trakt slug that can identify a different show and cause HTTP 404 scrobble failures.</description>
+    <platform>all</platform>
+    <license>GPL-3.0-or-later</license>
+    <source>https://github.com/JamieD91/Kodi_Build_Fixes</source>
+    <website>https://jamied91.github.io/Kodi_Build_Fixes/</website>
+    <news>Structure-checked manual repairs, guarded undo and one-shot restart cleanup. No account data is included.</news>
+  </extension>
+</addon>

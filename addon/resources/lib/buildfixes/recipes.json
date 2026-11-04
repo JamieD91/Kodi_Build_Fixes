@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": "0.1.3",
+  "version": "0.1.4",
   "repository": "https://github.com/JamieD91/Kodi_Build_Fixes",
   "fixes": [
     {
@@ -434,6 +434,34 @@
         }
       ],
       "description": "Normalise the older provider labels and handle unknown icons; recognise the newer upstream implementation without changing it."
+    },
+    {
+      "id": "redlight_scrobble",
+      "title": "Red Light Trakt playback identification",
+      "addons": [
+        "plugin.video.redlight"
+      ],
+      "sources": [
+        {
+          "paths": [
+            "addons/plugin.video.redlight/resources/lib/modules/player.py"
+          ],
+          "operations": [
+            {
+              "kind": "block",
+              "scope": [
+                "RedLightPlayer",
+                "set_playback_properties"
+              ],
+              "before": [
+                "trakt_ids = {'tmdb': self.tmdb_id, 'imdb': self.imdb_id, 'slug': make_trakt_slug(self.title)}\n"
+              ],
+              "after": "trakt_ids = {'tmdb': self.tmdb_id, 'imdb': self.imdb_id}\n"
+            }
+          ]
+        }
+      ],
+      "description": "Keep real media database IDs and remove the title-generated Trakt slug that can identify a different show and cause HTTP 404 scrobble failures."
     }
   ]
 }

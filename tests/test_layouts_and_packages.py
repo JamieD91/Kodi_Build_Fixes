@@ -9,7 +9,7 @@ import unittest
 import xml.etree.ElementTree as ET
 import zipfile
 import io
-from support import make_engine,PROJECT
+from support import make_engine,PROJECT,CATALOG
 
 
 class LayoutTests(unittest.TestCase):
@@ -19,7 +19,7 @@ class LayoutTests(unittest.TestCase):
             target=engine.root/'addons/script.module.tmdbhelper.sync.trakt/resources/lib/tmdbhelper_sync_trakt/directories/mapper_calendar_base.py'
             target.write_text(target.read_text().replace("    mediatype = 'episode'","    mediatype = 'episode'\n    changed_configuration = True"))
             plans=engine.scan()
-            self.assertEqual(len(plans),10)
+            self.assertEqual(len(plans),len(CATALOG['fixes']))
             self.assertEqual(next(p.status for p in plans if p.id=='calendar'),'incompatible')
             self.assertEqual(next(p.status for p in plans if p.id=='autowidget'),'ready')
 
@@ -87,13 +87,13 @@ class PackageTests(unittest.TestCase):
                     self.assertEqual(package['id'],root)
                     ET.fromstring(z.read(root+'/resources/settings.xml'))
                     self.assertIn(root+'/LICENSE.txt',z.namelist())
-        self.assertEqual(count,14)  # combined + ten repairs + organiser + viewer + repository
+        self.assertEqual(count,len(CATALOG['fixes'])+4)  # combined + repairs + organiser + viewer + repository
 
     def test_repository_index_and_all_download_checksums(self):
         xml=self.outputs['repository/addons.xml']
         self.assertEqual(self.outputs['repository/addons.xml.md5'].decode().strip(),hashlib.md5(xml).hexdigest())
         root=ET.fromstring(xml)
-        self.assertEqual(len(root.findall('addon')),13)
+        self.assertEqual(len(root.findall('addon')),len(CATALOG['fixes'])+3)
         manifest=json.loads(self.outputs['repository/manifest.json'])
         for package in manifest['packages']:
             raw=self.outputs[package['path']]

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<addon id="script.jamied91.buildfixes.reauthorize" name="Jamie Fix - ReAuthorize Trakt metadata and sign-in recovery" version="0.1.3" provider-name="JamieD91">
+<addon id="script.jamied91.buildfixes.reauthorize" name="Jamie Fix - ReAuthorize Trakt metadata and sign-in recovery" version="0.1.4" provider-name="JamieD91">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>
