@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <addons>
-  <addon id="script.jamied91.buildfixes" name="Jamie Build Fixes - Toolkit" version="0.1.2" provider-name="JamieD91">
+  <addon id="script.jamied91.buildfixes" name="Jamie Build Fixes - Toolkit" version="0.1.3" provider-name="JamieD91">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -18,7 +18,7 @@
       <news>Structure-checked manual repairs, guarded undo and one-shot restart cleanup. No account data is included.</news>
     </extension>
   </addon>
-  <addon id="script.jamied91.buildfixes.calendar" name="Jamie Fix - Trakt calendar episode playback" version="0.1.2" provider-name="JamieD91">
+  <addon id="script.jamied91.buildfixes.calendar" name="Jamie Fix - Trakt calendar episode playback" version="0.1.3" provider-name="JamieD91">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -36,7 +36,7 @@
       <news>Structure-checked manual repairs, guarded undo and one-shot restart cleanup. No account data is included.</news>
     </extension>
   </addon>
-  <addon id="script.jamied91.buildfixes.tmdb_player" name="Jamie Fix - TMDb Helper playback callbacks" version="0.1.2" provider-name="JamieD91">
+  <addon id="script.jamied91.buildfixes.tmdb_player" name="Jamie Fix - TMDb Helper playback callbacks" version="0.1.3" provider-name="JamieD91">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -54,7 +54,7 @@
       <news>Structure-checked manual repairs, guarded undo and one-shot restart cleanup. No account data is included.</news>
     </extension>
   </addon>
-  <addon id="script.jamied91.buildfixes.autowidget" name="Jamie Fix - AutoWidget playback tracking and refresh queue" version="0.1.2" provider-name="JamieD91">
+  <addon id="script.jamied91.buildfixes.autowidget" name="Jamie Fix - AutoWidget playback tracking and refresh queue" version="0.1.3" provider-name="JamieD91">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -72,7 +72,7 @@
       <news>Structure-checked manual repairs, guarded undo and one-shot restart cleanup. No account data is included.</news>
     </extension>
   </addon>
-  <addon id="script.jamied91.buildfixes.umbrella" name="Jamie Fix - Umbrella progress episode mapping" version="0.1.2" provider-name="JamieD91">
+  <addon id="script.jamied91.buildfixes.umbrella" name="Jamie Fix - Umbrella progress episode mapping" version="0.1.3" provider-name="JamieD91">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -90,7 +90,7 @@
       <news>Structure-checked manual repairs, guarded undo and one-shot restart cleanup. No account data is included.</news>
     </extension>
   </addon>
-  <addon id="script.jamied91.buildfixes.liveguide" name="Jamie Fix - Live TV provider and retry scheduling" version="0.1.2" provider-name="JamieD91">
+  <addon id="script.jamied91.buildfixes.liveguide" name="Jamie Fix - Live TV provider and retry scheduling" version="0.1.3" provider-name="JamieD91">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -108,7 +108,7 @@
       <news>Structure-checked manual repairs, guarded undo and one-shot restart cleanup. No account data is included.</news>
     </extension>
   </addon>
-  <addon id="script.jamied91.buildfixes.reauthorize" name="Jamie Fix - ReAuthorize Trakt metadata and sign-in recovery" version="0.1.2" provider-name="JamieD91">
+  <addon id="script.jamied91.buildfixes.reauthorize" name="Jamie Fix - ReAuthorize Trakt metadata and sign-in recovery" version="0.1.3" provider-name="JamieD91">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -126,7 +126,7 @@
       <news>Structure-checked manual repairs, guarded undo and one-shot restart cleanup. No account data is included.</news>
     </extension>
   </addon>
-  <addon id="script.jamied91.buildfixes.extendedinfo" name="Jamie Fix - ExtendedInfo manifest repair" version="0.1.2" provider-name="JamieD91">
+  <addon id="script.jamied91.buildfixes.extendedinfo" name="Jamie Fix - ExtendedInfo manifest repair" version="0.1.3" provider-name="JamieD91">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -144,7 +144,7 @@
       <news>Structure-checked manual repairs, guarded undo and one-shot restart cleanup. No account data is included.</news>
     </extension>
   </addon>
-  <addon id="script.jamied91.buildfixes.trakt_context" name="Jamie Fix - Trakt context menu for online items" version="0.1.2" provider-name="JamieD91">
+  <addon id="script.jamied91.buildfixes.trakt_context" name="Jamie Fix - Trakt context menu for online items" version="0.1.3" provider-name="JamieD91">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -162,7 +162,7 @@
       <news>Structure-checked manual repairs, guarded undo and one-shot restart cleanup. No account data is included.</news>
     </extension>
   </addon>
-  <addon id="script.jamied91.buildfixes.torrentio" name="Jamie Fix - Viper Torrentio empty-result handling" version="0.1.2" provider-name="JamieD91">
+  <addon id="script.jamied91.buildfixes.torrentio" name="Jamie Fix - Viper Torrentio empty-result handling" version="0.1.3" provider-name="JamieD91">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -180,7 +180,7 @@
       <news>Structure-checked manual repairs, guarded undo and one-shot restart cleanup. No account data is included.</news>
     </extension>
   </addon>
-  <addon id="script.jamied91.buildfixes.weather" name="Jamie Fix - Older Yahoo weather label mapping" version="0.1.2" provider-name="JamieD91">
+  <addon id="script.jamied91.buildfixes.weather" name="Jamie Fix - Older Yahoo weather label mapping" version="0.1.3" provider-name="JamieD91">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
     </requires>

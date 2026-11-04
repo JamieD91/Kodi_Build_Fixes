@@ -11,7 +11,7 @@ from unittest.mock import patch
 from support import make_engine
 from buildfixes.engine import Incompatible, Plan
 from buildfixes.trakt_bridge import (
-    BASE, KEYS, VARIABLES, SYNC, LEGACY, REPAIRED, LEGACY_ROUTE, PROVIDER_ROUTE,
+    BASE, KEYS, VARIABLES, SYNC, LEGACY, REPAIRED, UPSTREAM_COMPAT, LEGACY_ROUTE, PROVIDER_ROUTE,
     patch_keys, patch_sync, patch_route, inspect_bridge)
 
 MASTER, ORIGINAL, CUSTOM = 'a'*64, 'b'*64, 'c'*64
@@ -135,5 +135,26 @@ class BridgeTests(unittest.TestCase):
             exec(compile(changed,'route-test','exec'),namespace)
             self.assertIn('script.module.tmdbhelper.sync.trakt' if present else 'plugin.video.themoviedb.helper',namespace['path_tmdbh'])
         with self.assertRaises(Incompatible):patch_route(raw.replace(b'api_keys/trakt.py',b'unknown/trakt.py'))
+
+    def test_upstream_provider_adapter_is_preserved_and_does_not_block_key_repair(self):
+        engine=make_engine(self.root/'native')
+        def write(name, text):
+            path=engine.root/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(text)
+        write(KEYS,"CLIENT_ID = '"+ORIGINAL+"'\n")
+        write(VARIABLES,"def traktID():\n    return '"+MASTER+"'\ntmdbh_client = '"+ORIGINAL+"'\n"+LEGACY_ROUTE)
+        write(BASE+'api/api.py','from tmdbhelper_sync_trakt.api.keys import CLIENT_ID\nclass TraktAPI:\n    client_id = CLIENT_ID\n')
+        source=('class Auth:\n    def trakt_auth(self):\n'+
+                '\n'.join('        '+line for line in UPSTREAM_COMPAT.splitlines())+'\n').encode()
+        path=engine.root/SYNC;path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(source)
+        engine.backend.set_setting('script.module.reauthorize','trakt.token','synthetic-access')
+        engine.backend.set_setting('script.module.reauthorize','trakt.refresh','synthetic-refresh')
+        engine.backend.set_setting('script.module.tmdbhelper.sync.trakt','token',json.dumps(
+            {'access_token':'synthetic-access','refresh_token':'synthetic-refresh'}))
+        plan=Plan('reauthorize','ReAuthorize');inspect_bridge(engine,plan)
+        self.assertEqual({change.path for change in plan.files},{KEYS,VARIABLES})
+        self.assertEqual(patch_sync(source),source)
+        self.assertEqual((engine.root/SYNC).read_bytes(),source)
+        with self.assertRaises(Incompatible):
+            patch_sync(source.replace(b'tmdbh_compat.sync_trakt',b'tmdbh_compat.unknown_sync'))
 
 if __name__ == '__main__':unittest.main()

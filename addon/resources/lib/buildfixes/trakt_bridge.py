@@ -116,6 +116,38 @@ REPAIRED = r'''if 'TMDb Helper' in current:
                 home.clearProperty('TMDbHelper.'+name)
 '''
 
+# Newer Xenon distributions delegate provider configuration to their own adapter.
+# Recognise this exact branch without replacing its OAuth-secret handling.
+UPSTREAM_COMPAT = '''if 'TMDb Helper' in current:
+    if xbmcvfs.exists(var.chk_tmdbh) and (not xbmcvfs.exists(var.tmdbh_ud)):
+        os.mkdir(var.tmdbh_ud)
+        xbmcvfs.copy(os.path.join(var.tmdbh), os.path.join(var.chkset_tmdbh))
+    if xbmcvfs.exists(var.chk_tmdbh) and (not xbmcvfs.exists(var.chkset_tmdbh)):
+        xbmcvfs.copy(os.path.join(var.tmdbh), os.path.join(var.chkset_tmdbh))
+    if xbmcvfs.exists(var.chk_tmdbh):
+        chk_auth_tmdbh = xbmcaddon.Addon('plugin.video.themoviedb.helper').getSetting('trakt_token')
+        if False:
+            pass
+        else:
+            your_expires_float = float(your_expires)
+            your_expires_rnd = int(your_expires_float)
+            import json
+            lifetime = int(float(accountmgr.getSetting('trakt.lifetime') or 604800))
+            tmdbh_data = json.dumps({'access_token': your_token, 'refresh_token': your_refresh, 'token_type': 'bearer', 'expires_in': lifetime, 'created_at': your_expires_rnd - lifetime, 'scope': 'public'})
+            from reauthorize.modules import tmdbh_compat
+            if tmdbh_compat.installed(tmdbh_compat.TRAKT):
+                tmdbh_compat.sync_trakt(tmdbh_data, var.client_am, var.secret_am)
+            else:
+                with open(var.path_tmdbh, 'r') as f:
+                    data = f.read()
+                client = data.replace(var.tmdbh_client, var.client_am).replace(var.tmdbh_secret, var.secret_am)
+                with open(var.path_tmdbh, 'w') as f:
+                    f.write(client)
+                xbmcaddon.Addon('plugin.video.themoviedb.helper').setSettingString('trakt_token', tmdbh_data)
+            addon = xbmcaddon.Addon('plugin.video.themoviedb.helper')
+            addon.setSetting('startup_notifications', 'false')
+'''
+
 
 def literal_settings(raw):
     tree = ast.parse(raw.decode('utf-8-sig'))
@@ -154,7 +186,8 @@ def patch_sync(raw):
     if len(candidates)!=1:
         raise Incompatible('ReAuthorize TMDb Helper sync branch changed')
     node = candidates[0]
-    if fingerprint(node)==fingerprint(ast.parse(REPAIRED).body[0]):
+    if any(fingerprint(node)==fingerprint(ast.parse(known).body[0])
+           for known in (REPAIRED, UPSTREAM_COMPAT)):
         return raw
     if fingerprint(node)!=fingerprint(ast.parse(LEGACY).body[0]):
         raise Incompatible('ReAuthorize TMDb Helper sync implementation changed')

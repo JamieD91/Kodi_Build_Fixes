@@ -1,111 +1,111 @@
 {
   "schema": 1,
-  "version": "0.1.2",
+  "version": "0.1.3",
   "packages": [
     {
       "id": "script.jamied91.buildfixes",
-      "version": "0.1.2",
-      "path": "repository/script.jamied91.buildfixes/script.jamied91.buildfixes-0.1.2.zip",
-      "sha256": "49aff2cb18f19ad23466bfb9d3a2d374ed74b267ea5ab87267c30b4ea2a8bba9",
-      "bytes": 53131,
+      "version": "0.1.3",
+      "path": "repository/script.jamied91.buildfixes/script.jamied91.buildfixes-0.1.3.zip",
+      "sha256": "73c4828005dfd2adfeae77162b85b542dc0a2547efb110c544377b6f37ee916c",
+      "bytes": 53359,
       "fixes": []
     },
     {
       "id": "script.jamied91.buildfixes.calendar",
-      "version": "0.1.2",
-      "path": "repository/script.jamied91.buildfixes.calendar/script.jamied91.buildfixes.calendar-0.1.2.zip",
-      "sha256": "f69faf7ac14804b9c555ee98060a6d843a6ac18c0727ce0c41fa23c855f3f895",
-      "bytes": 53460,
+      "version": "0.1.3",
+      "path": "repository/script.jamied91.buildfixes.calendar/script.jamied91.buildfixes.calendar-0.1.3.zip",
+      "sha256": "c4e1aa0dfef01b2eb507b6e8bb35b202935f141e0dbb69dc56c0be1be1291006",
+      "bytes": 53688,
       "fixes": [
         "calendar"
       ]
     },
     {
       "id": "script.jamied91.buildfixes.tmdb_player",
-      "version": "0.1.2",
-      "path": "repository/script.jamied91.buildfixes.tmdb_player/script.jamied91.buildfixes.tmdb_player-0.1.2.zip",
-      "sha256": "d11fc7d9fe7540ff6088ec0f23f3a8d70995381c740b4341d3c4823a9231765a",
-      "bytes": 53558,
+      "version": "0.1.3",
+      "path": "repository/script.jamied91.buildfixes.tmdb_player/script.jamied91.buildfixes.tmdb_player-0.1.3.zip",
+      "sha256": "4ab615eb4970b0d78e56b54f119a033baac43da9048f53d895872a7ac5e25b33",
+      "bytes": 53786,
       "fixes": [
         "tmdb_player"
       ]
     },
     {
       "id": "script.jamied91.buildfixes.autowidget",
-      "version": "0.1.2",
-      "path": "repository/script.jamied91.buildfixes.autowidget/script.jamied91.buildfixes.autowidget-0.1.2.zip",
-      "sha256": "fd8cb9e1944d15d1dac8cc4682a22be5b33a71698aa317b09320be7bf4abe502",
-      "bytes": 53546,
+      "version": "0.1.3",
+      "path": "repository/script.jamied91.buildfixes.autowidget/script.jamied91.buildfixes.autowidget-0.1.3.zip",
+      "sha256": "9c4809cc25655c5b0280310bb5e3a6cdd22362daa77ce0e1971ab810a1dfbbc6",
+      "bytes": 53773,
       "fixes": [
         "autowidget"
       ]
     },
     {
       "id": "script.jamied91.buildfixes.umbrella",
-      "version": "0.1.2",
-      "path": "repository/script.jamied91.buildfixes.umbrella/script.jamied91.buildfixes.umbrella-0.1.2.zip",
-      "sha256": "4d94a147a0ff1cea4e9f5795fbd0314f23a4c9f79d3b1e70bf41cf234a6b1b3c",
-      "bytes": 53470,
+      "version": "0.1.3",
+      "path": "repository/script.jamied91.buildfixes.umbrella/script.jamied91.buildfixes.umbrella-0.1.3.zip",
+      "sha256": "661b4f1b24e35be6d2b61b52b623a13b30ada6dd9d1cbb382e3fe9eb956ed410",
+      "bytes": 53697,
       "fixes": [
         "umbrella"
       ]
     },
     {
       "id": "script.jamied91.buildfixes.liveguide",
-      "version": "0.1.2",
-      "path": "repository/script.jamied91.buildfixes.liveguide/script.jamied91.buildfixes.liveguide-0.1.2.zip",
-      "sha256": "497a13f868f70f16ebf9a7b9fe698f10559f04db826ee874af3f7204f53d1765",
-      "bytes": 53497,
+      "version": "0.1.3",
+      "path": "repository/script.jamied91.buildfixes.liveguide/script.jamied91.buildfixes.liveguide-0.1.3.zip",
+      "sha256": "362d6405c027fd21479dc59288ac9d5dbf4eacbad3faf8c6bbc8e0881789ade7",
+      "bytes": 53725,
       "fixes": [
         "liveguide"
       ]
     },
     {
       "id": "script.jamied91.buildfixes.reauthorize",
-      "version": "0.1.2",
-      "path": "repository/script.jamied91.buildfixes.reauthorize/script.jamied91.buildfixes.reauthorize-0.1.2.zip",
-      "sha256": "fc387d1dc6c3d97f4e264389ff4053974d6fdfa1458c463e65a5186583e5d846",
-      "bytes": 53594,
+      "version": "0.1.3",
+      "path": "repository/script.jamied91.buildfixes.reauthorize/script.jamied91.buildfixes.reauthorize-0.1.3.zip",
+      "sha256": "bf20d8799a5726eb2604410cd501546132eed45e1cab534691f7b9dccbc2ef0c",
+      "bytes": 53822,
       "fixes": [
         "reauthorize"
       ]
     },
     {
       "id": "script.jamied91.buildfixes.extendedinfo",
-      "version": "0.1.2",
-      "path": "repository/script.jamied91.buildfixes.extendedinfo/script.jamied91.buildfixes.extendedinfo-0.1.2.zip",
-      "sha256": "ed67ceaf9c9af0c69178f5c1a46469ffa1595625ed9c90fe1fd5debf30be8fa7",
-      "bytes": 53583,
+      "version": "0.1.3",
+      "path": "repository/script.jamied91.buildfixes.extendedinfo/script.jamied91.buildfixes.extendedinfo-0.1.3.zip",
+      "sha256": "dd14814e6e7a16ec8a34a3ba69126b22f6011d85509af7bf20755aa6824da582",
+      "bytes": 53811,
       "fixes": [
         "extendedinfo"
       ]
     },
     {
       "id": "script.jamied91.buildfixes.trakt_context",
-      "version": "0.1.2",
-      "path": "repository/script.jamied91.buildfixes.trakt_context/script.jamied91.buildfixes.trakt_context-0.1.2.zip",
-      "sha256": "fd979a71a1c0cff9be0f87085704c22dc55fa82f83b2797200e12eaf50d9045c",
-      "bytes": 53632,
+      "version": "0.1.3",
+      "path": "repository/script.jamied91.buildfixes.trakt_context/script.jamied91.buildfixes.trakt_context-0.1.3.zip",
+      "sha256": "91e2b644ea1f98a1b33c3609f68062762f27017ffd40e38a5b22733d15b60707",
+      "bytes": 53860,
       "fixes": [
         "trakt_context"
       ]
     },
     {
       "id": "script.jamied91.buildfixes.torrentio",
-      "version": "0.1.2",
-      "path": "repository/script.jamied91.buildfixes.torrentio/script.jamied91.buildfixes.torrentio-0.1.2.zip",
-      "sha256": "15b044623a1cc0a4567e4c61d3d5b52a73ebab3c90660370b8b23879ff5aa77a",
-      "bytes": 53487,
+      "version": "0.1.3",
+      "path": "repository/script.jamied91.buildfixes.torrentio/script.jamied91.buildfixes.torrentio-0.1.3.zip",
+      "sha256": "60ddaa8c90c9ef92bcddbbb66d3d8597db9f8d00db9e4d49d2a98d9235d753f0",
+      "bytes": 53715,
       "fixes": [
         "torrentio"
       ]
     },
     {
       "id": "script.jamied91.buildfixes.weather",
-      "version": "0.1.2",
-      "path": "repository/script.jamied91.buildfixes.weather/script.jamied91.buildfixes.weather-0.1.2.zip",
-      "sha256": "5706a882fc718fad8542fcf69dcce9424113812a385377cd86820c3ac9e4ccfa",
-      "bytes": 53442,
+      "version": "0.1.3",
+      "path": "repository/script.jamied91.buildfixes.weather/script.jamied91.buildfixes.weather-0.1.3.zip",
+      "sha256": "374cbe6fc3d6e2d21ddc2f90678eed41cc9365d2498374f6cf074f0920e38637",
+      "bytes": 53670,
       "fixes": [
         "weather"
       ]
