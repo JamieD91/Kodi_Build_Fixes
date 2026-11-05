@@ -5,6 +5,7 @@ __pycache__/
 *.log
 settings.xml
 !addon/resources/settings.xml
+!player_order/resources/settings.xml
 .env
 *.token
 backups/

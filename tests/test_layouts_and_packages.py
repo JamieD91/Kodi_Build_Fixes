@@ -104,6 +104,17 @@ class PackageTests(unittest.TestCase):
     def test_build_is_reproducible(self):
         self.assertEqual(self.outputs,self.build.outputs())
 
+    def test_organiser_packages_optional_startup_service_and_manual_default(self):
+        addon=self.build.ORDER_ID
+        name='repository/'+addon+'/'+addon+'-'+self.build.ORDER_VERSION+'.zip'
+        with zipfile.ZipFile(io.BytesIO(self.outputs[name])) as z:
+            manifest=ET.fromstring(z.read(addon+'/addon.xml'))
+            self.assertEqual(manifest.find("extension[@point='xbmc.service']").get('library'),'service.py')
+            self.assertIn(addon+'/service.py',z.namelist())
+            settings=ET.fromstring(z.read(addon+'/resources/settings.xml'))
+            toggle=settings.find(".//setting[@id='auto_reapply']")
+            self.assertEqual(toggle.get('default'),'false')
+
     def test_file_manager_page_lists_all_packages_with_kodi_http_rules(self):
         # Kodi Omega xbmc/filesystem/HTTPDirectory.cpp requires the decoded
         # anchor text to match the relative href, rather than a friendly label.

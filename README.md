@@ -75,6 +75,17 @@ can be disabled from the organiser. If a Helper update clears it, run Enable
 again; unknown implementations are refused and saved preferences are retained.
 Installing the organiser does not enable the hook automatically.
 
+Organiser 0.1.1 adds **Automatic recovery settings → Automatically reapply
+enabled player menus**. It is off by default, retaining manual operation.
+With it on, the service checks at startup and watches the chooser file for
+updates. An intact hook is not rewritten and creates no extra backups. A
+recognised missing hook is backed up and restored after the file settles and
+playback stops. Unknown code is left alone and logged. **Disable enhanced
+player menus** is remembered and prevents automatic re-enabling. Your saved
+menu orders are unchanged. The service never restarts Kodi; an already loaded
+chooser may need reopening or the next normal restart. With the toggle off,
+the startup service exits immediately without scanning Helper or monitoring.
+
 ## Kodi Storage Viewer
 
 Install **Kodi Storage Viewer** from this repository's Program add-ons and open

@@ -122,10 +122,10 @@
     },
     {
       "id": "script.jamied91.playerorder",
-      "version": "0.1.0",
-      "path": "repository/script.jamied91.playerorder/script.jamied91.playerorder-0.1.0.zip",
-      "sha256": "172a7f1c2a0c7f7984c1b68c2c5ed644db9651edfcc7b0d221bd80876207c111",
-      "bytes": 24064,
+      "version": "0.1.1",
+      "path": "repository/script.jamied91.playerorder/script.jamied91.playerorder-0.1.1.zip",
+      "sha256": "e8f7a2b6535cef06611dcfdc4f1eba28ef81d967a289e22f6db3c4f1e8c18568",
+      "bytes": 27885,
       "fixes": [],
       "feature": "player_order"
     },

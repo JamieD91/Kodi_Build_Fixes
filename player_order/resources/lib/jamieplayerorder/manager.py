@@ -1,4 +1,4 @@
-"""User-invoked setup, preview and recovery. No background patching service."""
+"""User-invoked setup, preview and optional automatic recovery."""
 import json
 from pathlib import Path
 import xbmc
@@ -7,7 +7,8 @@ import xbmcgui
 import xbmcvfs
 from jamieplayerorder import ADDON_ID
 from jamieplayerorder.chooser import select_player
-from jamieplayerorder.integration import apply, inspect, RELATIVE, Unsupported
+from jamieplayerorder.integration import inspect, RELATIVE, Unsupported
+from jamieplayerorder.control import set_integration
 from jamieplayerorder.order import OrderStore
 
 TITLE = 'Player Menu Organiser'
@@ -73,6 +74,7 @@ def main():
                 'Put Red Light first',
                 'Reset all saved menu orders',
                 'Disable enhanced player menus',
+                'Automatic recovery settings',
                 'Help'])
             if choice < 0:
                 return
@@ -84,7 +86,9 @@ def main():
                         'Enable saved ordering and Move up / Move down in TMDb Helper player menus?\n\n'
                         'A small checked chooser change will be backed up. Restart Kodi afterward.'):
                     continue
-                changed = apply(helper_path, profile, enable=choice == 0)
+                changed = set_integration(helper_path, profile, enable=choice == 0)
+                if choice == 0 and own.getSetting('auto_reapply') == 'true':
+                    xbmc.executebuiltin('RunScript('+ADDON_ID+',startup)')
                 xbmcgui.Dialog().ok(TITLE, 'Chooser '+('enabled' if choice == 0 else 'disabled')+
                     ('. Restart Kodi before using it.' if changed else '. No source changes were needed.'))
             elif choice == 1:
@@ -99,6 +103,10 @@ def main():
             elif choice == 3:
                 if xbmcgui.Dialog().yesno(TITLE, 'Restore the original order for all player menus?'):
                     store.reset()
+            elif choice == 5:
+                own.openSettings()
+                if own.getSetting('auto_reapply') == 'true':
+                    xbmc.executebuiltin('RunScript('+ADDON_ID+',startup)')
             else:
                 xbmcgui.Dialog().textviewer(TITLE,
                     'Enable once, then restart Kodi.\n\n'
@@ -110,7 +118,12 @@ def main():
                     'Reset this menu restores TMDb Helper ordering for that menu.\n\n'
                     'This affects TMDb Helper player choosers only. It does not reorder unrelated Kodi dialogs. '
                     'No skin files, global keymaps, playback settings or account tokens are changed.\n\n'
-                    'If a TMDb Helper update clears the integration, run Enable / reapply again. '
+                    'Automatic recovery settings lets you choose manual recovery or automatic reapply. '
+                    'Automatic mode checks at startup and after Helper updates, waits for playback to stop, '
+                    'and restores only a recognised missing hook. An intact hook is not rewritten. '
+                    'Disable enhanced player menus also stops automatic recovery. Kodi is never restarted automatically. '
+                    'A chooser already loaded by Kodi may need reopening or the next normal restart. '
+                    'In manual mode, run Enable / reapply after an update clears the integration. '
                     'Unknown chooser implementations are refused. Saved orders stay in this add-on\'s userdata folder.')
     except Exception as error:
         xbmc.log('Player Menu Organiser: '+type(error).__name__, xbmc.LOGERROR)

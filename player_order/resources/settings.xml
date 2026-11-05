@@ -1,0 +1,7 @@
+<settings>
+    <category label="Automatic recovery">
+        <setting id="auto_reapply" type="bool" label="Automatically reapply enabled player menus" default="false"/>
+        <setting type="lsep" label="Off: manual recovery. On: check at startup and after Helper updates."/>
+        <setting type="lsep" label="Only recognised chooser code is repaired. Kodi is never restarted automatically."/>
+    </category>
+</settings>

@@ -112,15 +112,15 @@ def outputs():
         package_info.append({'id':addon_id,'version':VERSION,'path':relative,'sha256':digest,'bytes':len(data),'fixes':selected})
     order_manifest=manifest(ORDER_ID,'Jamie Player Menu Organiser',
         'Saved ordering and Move up / Move down for TMDb Helper player menus. '
-        'Open this program add-on to enable the checked chooser integration, then restart Kodi.',version=ORDER_VERSION)
-    order_manifest.remove(order_manifest.find("extension[@point='xbmc.service']"))
+        'Optional automatic recovery restores a recognised missing hook at startup and after Helper updates. '
+        'Manual recovery remains the default.',version=ORDER_VERSION)
     ET.SubElement(order_manifest.find('requires'),'import',{'addon':'plugin.video.themoviedb.helper','version':'6.20.3'})
-    order_manifest.find("extension[@point='xbmc.addon.metadata']/news").text='First release: skin-aware player ordering, context menu, preview and reversible integration.'
+    order_manifest.find("extension[@point='xbmc.addon.metadata']/news").text='Optional startup/update recovery, remembered enable/disable intent and no-op checks when the hook is intact. Manual mode remains the default.'
     order_files={p.relative_to(ROOT/'player_order').as_posix():p.read_bytes()
         for p in (ROOT/'player_order').rglob('*')
         if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.pyo')}
     order_files.update({'addon.xml':xml_bytes(order_manifest),'LICENSE.txt':files['LICENSE.txt'],
-        'CREDITS.txt':files['CREDITS.txt'],'resources/settings.xml':b'<settings/>\n',
+        'CREDITS.txt':files['CREDITS.txt'],
         'package.json':json.dumps({'id':ORDER_ID,'version':ORDER_VERSION,'feature':'player_order'}).encode()})
     order_zip=zip_bytes(order_files,ORDER_ID)
     order_path='repository/'+ORDER_ID+'/'+ORDER_ID+'-'+ORDER_VERSION+'.zip'
