@@ -75,6 +75,16 @@ can be disabled from the organiser. If a Helper update clears it, run Enable
 again; unknown implementations are refused and saved preferences are retained.
 Installing the organiser does not enable the hook automatically.
 
+The organiser and Storage Viewer are independent program add-ons; they do not
+require Xenon or any of the repair patches. Organiser 0.1.2 supports Windows
+Kodi's Python 3.8 and the unchanged player-chooser contract in Helper 6.15.1,
+including the Crew build using Xonfluence. Later Helper versions are checked
+by code structure. Storage Viewer uses Kodi's current local profile and active
+skin and requires no Helper integration. These features do not reorder native
+source/resolver dialogs generated internally by other video add-ons.
+Storage Viewer 0.1.1 also refreshes Windows directory-entry metadata when
+browsing folders, avoiding stale file sizes in Kodi's Python 3.8 runtime.
+
 Organiser 0.1.1 adds **Automatic recovery settings → Automatically reapply
 enabled player menus**. It is off by default, retaining manual operation.
 With it on, the service checks at startup and watches the chooser file for

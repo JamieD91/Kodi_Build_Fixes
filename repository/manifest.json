@@ -122,19 +122,19 @@
     },
     {
       "id": "script.jamied91.playerorder",
-      "version": "0.1.1",
-      "path": "repository/script.jamied91.playerorder/script.jamied91.playerorder-0.1.1.zip",
-      "sha256": "e8f7a2b6535cef06611dcfdc4f1eba28ef81d967a289e22f6db3c4f1e8c18568",
-      "bytes": 27885,
+      "version": "0.1.2",
+      "path": "repository/script.jamied91.playerorder/script.jamied91.playerorder-0.1.2.zip",
+      "sha256": "7582694c5ad0933fe2a67548ba3e4a0a37939640b472d65d0c9751688f8c225e",
+      "bytes": 27987,
       "fixes": [],
       "feature": "player_order"
     },
     {
       "id": "script.jamied91.storageviewer",
-      "version": "0.1.0",
-      "path": "repository/script.jamied91.storageviewer/script.jamied91.storageviewer-0.1.0.zip",
-      "sha256": "98226bedd085c1fc19c7a2987203c89a91088729017e19c3550b1080d2034496",
-      "bytes": 27572,
+      "version": "0.1.1",
+      "path": "repository/script.jamied91.storageviewer/script.jamied91.storageviewer-0.1.1.zip",
+      "sha256": "b25a5f0739923c912225647992656c768d0079387d14f768353b28da7f2fc7b5",
+      "bytes": 27643,
       "fixes": [],
       "feature": "storage_viewer"
     }

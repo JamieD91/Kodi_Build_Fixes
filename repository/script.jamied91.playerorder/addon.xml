@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<addon id="script.jamied91.playerorder" name="Jamie Player Menu Organiser" version="0.1.1" provider-name="JamieD91">
+<addon id="script.jamied91.playerorder" name="Jamie Player Menu Organiser" version="0.1.2" provider-name="JamieD91">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
-    <import addon="plugin.video.themoviedb.helper" version="6.20.3" />
+    <import addon="plugin.video.themoviedb.helper" version="6.15.1" />
   </requires>
   <extension point="xbmc.python.script" library="addon.py">
     <provides>executable</provides>
@@ -15,6 +15,6 @@
     <license>GPL-3.0-or-later</license>
     <source>https://github.com/JamieD91/Kodi_Build_Fixes</source>
     <website>https://jamied91.github.io/Kodi_Build_Fixes/</website>
-    <news>Optional startup/update recovery, remembered enable/disable intent and no-op checks when the hook is intact. Manual mode remains the default.</news>
+    <news>Windows Python 3.8 compatibility and support for the checked Helper 6.15.1 chooser used by Crew builds. Optional automatic recovery remains available; manual mode is the default.</news>
   </extension>
 </addon>

@@ -114,6 +114,8 @@ class PackageTests(unittest.TestCase):
             settings=ET.fromstring(z.read(addon+'/resources/settings.xml'))
             toggle=settings.find(".//setting[@id='auto_reapply']")
             self.assertEqual(toggle.get('default'),'false')
+            helper=manifest.find("requires/import[@addon='plugin.video.themoviedb.helper']")
+            self.assertEqual(helper.get('version'),'6.15.1')
 
     def test_file_manager_page_lists_all_packages_with_kodi_http_rules(self):
         # Kodi Omega xbmc/filesystem/HTTPDirectory.cpp requires the decoded
@@ -138,6 +140,12 @@ class PackageTests(unittest.TestCase):
             for path in (PROJECT/folder).rglob('*.py'):
                 if '__pycache__' not in path.parts:
                     ast.parse(path.read_text(encoding='utf-8'),feature_version=(3,9))
+
+    def test_independent_tools_use_python38_compatible_syntax(self):
+        for folder in ('player_order','storage_viewer'):
+            for path in (PROJECT/folder).rglob('*.py'):
+                if '__pycache__' not in path.parts:
+                    ast.parse(path.read_text(encoding='utf-8'),feature_version=(3,8))
 
     def test_no_machine_paths_or_private_storage_names_in_install_zips(self):
         forbidden=[b'C:\\Users\\Jamie',b'C:/Users/Jamie',b'TV IP.txt',b'connection.json',b'kodi-tv-patch-backups',b'kodi-reauthorize-20261101']

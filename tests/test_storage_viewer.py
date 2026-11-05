@@ -143,6 +143,18 @@ class StorageTests(unittest.TestCase):
         self.assertEqual(omitted, 10)
         self.assertEqual(displayed[-1][0], 10)
 
+    @unittest.skipUnless(os.name == 'nt','Windows directory enumeration metadata')
+    def test_windows_folder_browse_refreshes_stale_directory_entry_size(self):
+        path=self.put('temp/recent-file',123)
+        result=scan(self.roots)
+        stale=NS(st_mode=stat.S_IFREG,st_size=0,st_ino=0,st_nlink=0,st_file_attributes=0)
+        entry=NS(path=str(path),name=path.name,stat=lambda **kwargs:stale)
+        with patch('jamiestorageviewer.scan.os.scandir') as listing:
+            listing.return_value.__enter__.return_value=iter([entry])
+            rows,omitted=children(result,path.parent)
+        self.assertEqual(rows,[(123,path.name,False,str(path))])
+        self.assertEqual(omitted,0)
+
     def test_fallback_manifests_read_bounded_metadata_only(self):
         self.put('addons/a/addon.xml', b'<addon id="a" name="Example" version="1"><requires>'
             b'<import addon="module.required"/><import addon="module.optional" optional="true"/>'

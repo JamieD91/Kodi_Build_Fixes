@@ -216,10 +216,10 @@
       <news>Structure-checked manual repairs, guarded undo and one-shot restart cleanup. No account data is included.</news>
     </extension>
   </addon>
-  <addon id="script.jamied91.playerorder" name="Jamie Player Menu Organiser" version="0.1.1" provider-name="JamieD91">
+  <addon id="script.jamied91.playerorder" name="Jamie Player Menu Organiser" version="0.1.2" provider-name="JamieD91">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
-      <import addon="plugin.video.themoviedb.helper" version="6.20.3" />
+      <import addon="plugin.video.themoviedb.helper" version="6.15.1" />
     </requires>
     <extension point="xbmc.python.script" library="addon.py">
       <provides>executable</provides>
@@ -232,10 +232,10 @@
       <license>GPL-3.0-or-later</license>
       <source>https://github.com/JamieD91/Kodi_Build_Fixes</source>
       <website>https://jamied91.github.io/Kodi_Build_Fixes/</website>
-      <news>Optional startup/update recovery, remembered enable/disable intent and no-op checks when the hook is intact. Manual mode remains the default.</news>
+      <news>Windows Python 3.8 compatibility and support for the checked Helper 6.15.1 chooser used by Crew builds. Optional automatic recovery remains available; manual mode is the default.</news>
     </extension>
   </addon>
-  <addon id="script.jamied91.storageviewer" name="Kodi Storage Viewer" version="0.1.0" provider-name="JamieD91">
+  <addon id="script.jamied91.storageviewer" name="Kodi Storage Viewer" version="0.1.1" provider-name="JamieD91">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -249,7 +249,7 @@
       <license>GPL-3.0-or-later</license>
       <source>https://github.com/JamieD91/Kodi_Build_Fixes</source>
       <website>https://jamied91.github.io/Kodi_Build_Fixes/</website>
-      <news>First release: local storage explorer, add-on sizes, dependency graph, skin links and partial-scan reporting.</news>
+      <news>Windows Python 3.8 compatibility verified; folder browsing refreshes stale Windows directory metadata. Independent of custom builds and TMDb Helper.</news>
     </extension>
   </addon>
 </addons>

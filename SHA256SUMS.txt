@@ -11,5 +11,5 @@ be9c0a67c5fac2d06f357ff07a079b6b64a6307d69a21767194b9a46c3fdaad7  repository/scr
 38ad5b5c8454dc4d0021bf7529400ff4788597b9469c816fb7484b2b6bd02d9d  repository/script.jamied91.buildfixes.umbrella/script.jamied91.buildfixes.umbrella-0.1.4.zip
 1cb1d52de2d6998e6ce7914de444e87d6446bfd6895822fa8dc6ee115874d6ed  repository/script.jamied91.buildfixes.weather/script.jamied91.buildfixes.weather-0.1.4.zip
 7594b137cca6e7ef93ca088ad246cb06e2eb2f65b09cf7323d065e4462f8f63b  repository/script.jamied91.buildfixes/script.jamied91.buildfixes-0.1.4.zip
-e8f7a2b6535cef06611dcfdc4f1eba28ef81d967a289e22f6db3c4f1e8c18568  repository/script.jamied91.playerorder/script.jamied91.playerorder-0.1.1.zip
-98226bedd085c1fc19c7a2987203c89a91088729017e19c3550b1080d2034496  repository/script.jamied91.storageviewer/script.jamied91.storageviewer-0.1.0.zip
+7582694c5ad0933fe2a67548ba3e4a0a37939640b472d65d0c9751688f8c225e  repository/script.jamied91.playerorder/script.jamied91.playerorder-0.1.2.zip
+b25a5f0739923c912225647992656c768d0079387d14f768353b28da7f2fc7b5  repository/script.jamied91.storageviewer/script.jamied91.storageviewer-0.1.1.zip

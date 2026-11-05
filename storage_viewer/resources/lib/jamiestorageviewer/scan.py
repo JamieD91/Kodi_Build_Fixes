@@ -34,6 +34,15 @@ def link_like(info):
         getattr(info, 'st_file_attributes', 0) & getattr(stat, 'FILE_ATTRIBUTE_REPARSE_POINT', 0x400))
 
 
+def entry_stat(entry):
+    info = entry.stat(follow_symlinks=False)
+    # Windows' cached directory enumeration can omit file IDs/link counts
+    # and retain an old size (notably in Kodi's Python 3.8 runtime).
+    if os.name == 'nt' and stat.S_ISREG(info.st_mode) and (not info.st_ino or not info.st_nlink):
+        return os.stat(entry.path, follow_symlinks=False)
+    return info
+
+
 @dataclass
 class Root:
     path: Path
@@ -193,7 +202,7 @@ def scan(roots, cancel=lambda: False, progress=lambda snapshot: None, max_direct
                             break
                     path = Path(entry.path)
                     try:
-                        info = entry.stat(follow_symlinks=False)
+                        info = entry_stat(entry)
                         if link_like(info):
                             snapshot.links += 1
                             node.skipped += 1
@@ -211,10 +220,6 @@ def scan(roots, cancel=lambda: False, progress=lambda snapshot: None, max_direct
                         if not stat.S_ISREG(info.st_mode):
                             node.skipped += 1
                             continue
-                        # Windows DirEntry.stat may omit file IDs and link
-                        # counts. A full stat is needed for hard-link accounting.
-                        if os.name == 'nt' and (not info.st_ino or not info.st_nlink):
-                            info = os.stat(path, follow_symlinks=False)
                         size = info.st_size
                         # Count shared hard-linked file content only once. The
                         # first encountered path owns its category attribution.
@@ -275,7 +280,7 @@ def children(snapshot, path, limit=500, category=None):
     with os.scandir(node.path) as entries:
         for entry in entries:
             try:
-                info = entry.stat(follow_symlinks=False)
+                info = entry_stat(entry)
                 if link_like(info):
                     continue
                 if stat.S_ISDIR(info.st_mode):

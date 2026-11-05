@@ -100,6 +100,18 @@ class IntegrationTests(unittest.TestCase):
         self.assertIn(b'# version 99.0.0', after)
         self.assertEqual(inspect(after.decode()), 'enabled')
 
+    def test_python38_without_ast_unparse_and_inspection_keeps_original_ast(self):
+        from jamieplayerorder.integration import function, signature
+        node=function(self.source())
+        before=ast.dump(node,include_attributes=False)
+        with patch.object(ast,'unparse',None,create=True):
+            self.assertEqual(inspect(self.source().decode()),'ready')
+            changed=transform(self.source(),True)
+            self.assertEqual(inspect(changed.decode()),'enabled')
+            self.assertEqual(transform(changed,False),self.source())
+            signature(node)
+        self.assertEqual(ast.dump(node,include_attributes=False),before)
+
     def test_backup_enable_and_disable_modify_only_the_checked_source(self):
         with tempfile.TemporaryDirectory() as folder:
             helper, profile = Path(folder)/'helper', Path(folder)/'own-profile'

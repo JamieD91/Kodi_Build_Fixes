@@ -1,5 +1,6 @@
 """A narrowly checked, reversible integration at the player-selection layer."""
 import ast
+import copy
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -56,7 +57,9 @@ def function(source):
 
 
 def signature(node):
-    node = ast.parse(ast.unparse(node)).body[0]
+    # Kodi 21 on Windows embeds Python 3.8, which has no ast.unparse.
+    # Compare a copy so inspecting a method never changes its original AST.
+    node = copy.deepcopy(node)
     node.decorator_list = []
     return ast.dump(node, include_attributes=False)
 

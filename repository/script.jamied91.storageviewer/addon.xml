@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<addon id="script.jamied91.storageviewer" name="Kodi Storage Viewer" version="0.1.0" provider-name="JamieD91">
+<addon id="script.jamied91.storageviewer" name="Kodi Storage Viewer" version="0.1.1" provider-name="JamieD91">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>
@@ -13,6 +13,6 @@
     <license>GPL-3.0-or-later</license>
     <source>https://github.com/JamieD91/Kodi_Build_Fixes</source>
     <website>https://jamied91.github.io/Kodi_Build_Fixes/</website>
-    <news>First release: local storage explorer, add-on sizes, dependency graph, skin links and partial-scan reporting.</news>
+    <news>Windows Python 3.8 compatibility verified; folder browsing refreshes stale Windows directory metadata. Independent of custom builds and TMDb Helper.</news>
   </extension>
 </addon>

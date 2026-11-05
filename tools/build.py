@@ -114,8 +114,8 @@ def outputs():
         'Saved ordering and Move up / Move down for TMDb Helper player menus. '
         'Optional automatic recovery restores a recognised missing hook at startup and after Helper updates. '
         'Manual recovery remains the default.',version=ORDER_VERSION)
-    ET.SubElement(order_manifest.find('requires'),'import',{'addon':'plugin.video.themoviedb.helper','version':'6.20.3'})
-    order_manifest.find("extension[@point='xbmc.addon.metadata']/news").text='Optional startup/update recovery, remembered enable/disable intent and no-op checks when the hook is intact. Manual mode remains the default.'
+    ET.SubElement(order_manifest.find('requires'),'import',{'addon':'plugin.video.themoviedb.helper','version':'6.15.1'})
+    order_manifest.find("extension[@point='xbmc.addon.metadata']/news").text='Windows Python 3.8 compatibility and support for the checked Helper 6.15.1 chooser used by Crew builds. Optional automatic recovery remains available; manual mode is the default.'
     order_files={p.relative_to(ROOT/'player_order').as_posix():p.read_bytes()
         for p in (ROOT/'player_order').rglob('*')
         if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.pyo')}
@@ -136,7 +136,7 @@ def outputs():
         'inspect required/optional dependencies and active-skin references, then use Kodi add-on manager for removal. '
         'Read-only, cancellable scans; no cleanup or background service.',version=STORAGE_VERSION)
     storage_manifest.remove(storage_manifest.find("extension[@point='xbmc.service']"))
-    storage_manifest.find("extension[@point='xbmc.addon.metadata']/news").text='First release: local storage explorer, add-on sizes, dependency graph, skin links and partial-scan reporting.'
+    storage_manifest.find("extension[@point='xbmc.addon.metadata']/news").text='Windows Python 3.8 compatibility verified; folder browsing refreshes stale Windows directory metadata. Independent of custom builds and TMDb Helper.'
     storage_files={p.relative_to(ROOT/'storage_viewer').as_posix():p.read_bytes()
         for p in (ROOT/'storage_viewer').rglob('*')
         if p.is_file() and '__pycache__' not in p.parts and p.suffix not in ('.pyc','.pyo')}
